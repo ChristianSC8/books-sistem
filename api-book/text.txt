@@ -1,0 +1,13 @@
+
+@app.route('/books', methods=['GET'])
+def get_books():
+    books = mongo.db.books.find()
+    response = json_util.dumps(books)
+    return Response(response, mimetype="application/json")
+
+@app.route('/book/<id>', methods=['GET'])
+def get_book(id):
+    print(id)
+    book = mongo.db.books.find_one({'_id': ObjectId(id), })
+    response = json_util.dumps(book)
+    return Response(response, mimetype="application/json")
